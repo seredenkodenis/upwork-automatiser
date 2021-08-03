@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<fx:root type="javafx.scene.control.Tab" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+    <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="600.0">
+            <children>
+                <Accordion prefHeight="309.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+                    <panes>
+                        <TitledPane animated="false" text="Image">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label text="We haven't implemented it yet" />
+                           </children></AnchorPane>
+                            </content>
+                        </TitledPane>
+                        <TitledPane animated="false" text="Action">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="actions" text="Actions that will be done" />
+                           </children></AnchorPane>
+                            </content>
+                        </TitledPane>
+                        <TitledPane fx:id="desc" animated="false" text="Description">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="description" text="Description" />
+                           </children></AnchorPane>
+                            </content>
+                        </TitledPane>
+                    </panes>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                </Accordion>
+            </children>
+        </AnchorPane>
+    </content>
+</fx:root>
