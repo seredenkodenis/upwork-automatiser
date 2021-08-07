@@ -7,8 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.data.Step;
@@ -17,11 +15,9 @@ import main.dialog.CreateStepController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MovesController {
 
@@ -39,7 +35,7 @@ public class MovesController {
 
     @FXML
     private void addNewStep() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/resources/createStepDialog.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/resources/createStepDialog.fxml"));
         parent = fxmlLoader.load();
         CreateStepController newStep = fxmlLoader.getController();
         Scene scene = new Scene(parent, 391, 476);
@@ -61,7 +57,7 @@ public class MovesController {
 
         ContentTabController contentTabController = new ContentTabController("suck", "dick");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/resources/tabContent.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/resources/tabContent.fxml"));
         fxmlLoader.setRoot(tab);
         fxmlLoader.setController(contentTabController);
         fxmlLoader.load();
