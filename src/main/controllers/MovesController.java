@@ -49,10 +49,7 @@ public class MovesController {
         stage.setScene(scene);
         stage.showAndWait();
 
-        if (newStep.getStep() == null) {
-            stage.setScene(scene);
-            stage.showAndWait();
-        } else {
+        if (newStep.getStep() != null) {
             stepList.add(newStep.getStep());
             addNewTab(newStep.getStep());
         }

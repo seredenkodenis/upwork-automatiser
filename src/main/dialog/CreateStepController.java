@@ -58,16 +58,19 @@ public class CreateStepController {
 
     private Double pointY;
 
-    private final Step step = new Step();
+    private Step step;
 
     private ActionType type;
 
     @FXML
     private void saveStep() {
-        step.setPoint(new main.data.Point(pointX, pointY));
-        step.setActions(actions);
-        step.setType(type);
-        step.setDescription(descriptionField.getText());
+        if (actions.size() != 0 || (pointX != null && pointY != null)) {
+            step = new Step();
+            step.setPoint(new main.data.Point(pointX, pointY));
+            step.setActions(actions);
+            step.setType(type);
+            step.setDescription(descriptionField.getText());
+        }
         Stage currentStage = (Stage) bindedButtons.getScene().getWindow();
         currentStage.close();
     }
