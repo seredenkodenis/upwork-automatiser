@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.data.Step;
@@ -39,10 +40,15 @@ public class MovesController {
         parent = fxmlLoader.load();
         CreateStepController newStep = fxmlLoader.getController();
         Scene scene = new Scene(parent, 391, 476);
+
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
+        stage.getIcons()
+                .add(new Image(getClass().getResourceAsStream("/main/resources/robot.png")));
+        stage.setTitle("Create new step");
         stage.setScene(scene);
         stage.showAndWait();
+
         if (newStep.getStep() == null) {
             stage.setScene(scene);
             stage.showAndWait();
