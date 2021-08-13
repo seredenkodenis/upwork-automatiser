@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import main.annotations.Value;
+import main.annotations.ValueProcessor;
 import main.data.ActionType;
 import main.data.Step;
 
@@ -77,6 +79,9 @@ public class CreateStepController {
         }
     };
 
+    @Value(key = "dialog-title")
+    private String title;
+
     @FXML
     private void saveStep() {
         if (actions.size() != 0 || (pointX != null && pointY != null)) {
@@ -128,7 +133,7 @@ public class CreateStepController {
     @FXML
     private void bindButtons() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Information Dialog");
+        alert.setTitle(title);
         alert.setHeaderText("How to use this button");
         alert.setContentText("After you understand press UNDERSTAND. Then press first key, then other.");
 

@@ -11,6 +11,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.annotations.ValueProcessor;
 import main.data.Step;
 import main.dialog.CreateStepController;
 
@@ -36,7 +37,7 @@ public class MovesController {
 
 
     @FXML
-    private void addNewStep() throws IOException {
+    private void addNewStep() throws IOException, IllegalAccessException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/resources/createStepDialog.fxml"));
         parent = fxmlLoader.load();
         CreateStepController newStep = fxmlLoader.getController();
@@ -48,6 +49,7 @@ public class MovesController {
                 .add(new Image(getClass().getResourceAsStream("/main/resources/robot.png")));
         stage.setTitle("Create new step");
         stage.setScene(scene);
+        ValueProcessor.fillValues(newStep);
         stage.showAndWait();
 
         if (newStep.getStep() != null) {
