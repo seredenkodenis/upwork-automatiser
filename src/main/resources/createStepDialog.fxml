@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -14,6 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="391.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.dialog.CreateStepController">
    <children>
       <StackPane prefHeight="86.0" prefWidth="391.0" VBox.vgrow="ALWAYS">
@@ -51,7 +51,7 @@
                   <Label text="Key trigger" GridPane.rowIndex="1" />
                   <Button fx:id="submitButton" mnemonicParsing="false" onAction="#saveStep" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label text="Picture and point" GridPane.rowIndex="4" />
-                  <Button mnemonicParsing="false" text="Make picture" fx:id="pictureButton" onAction="#makePicture" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Button fx:id="pictureButton" mnemonicParsing="false" onAction="#makePicture" text="Make picture" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <SplitPane dividerPositions="0.5231343283582089" prefHeight="160.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -81,7 +81,20 @@
                     </items>
                   </SplitPane>
                   <Label text="Binded buttons" GridPane.rowIndex="2" />
-                  <Label fx:id="bindedButtons" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <SplitPane dividerPositions="0.5231343283582089" prefHeight="160.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <Label fx:id="bindedButtons" layoutX="13.0" layoutY="23.0" />
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <Button fx:id="rebindButton" disable="true" layoutY="19.0" mnemonicParsing="false" onAction="#rebindButtons" text="Rebind buttons" AnchorPane.leftAnchor="5.0" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
                </children>
             </GridPane>
          </children>
