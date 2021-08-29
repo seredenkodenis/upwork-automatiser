@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import main.annotations.Value;
 import main.data.ActionType;
 import main.data.Step;
@@ -173,15 +174,19 @@ public class CreateStepController {
     }
 
     @FXML
-    public void makePicture() throws AWTException, InterruptedException {
+    public void makePicture() throws AWTException{
 
-        hideWindows(FXRobotHelper.getStages(), (Stage) bindedButtons.getScene().getWindow());
+        List<Stage> stages = FXRobotHelper.getStages();
+        stages.forEach(stage -> stage.setOpacity(0f));
 
         Robot robot = new Robot();
         final Dimension screenSize = Toolkit.getDefaultToolkit().
                 getScreenSize();
         final BufferedImage screen = robot.createScreenCapture(
                 new Rectangle(screenSize));
+
+
+        stages.forEach(stage -> stage.setOpacity(1f));
 
         SwingUtilities.invokeLater(() -> {
             JLabel screenLabel = new JLabel(new ImageIcon(screen));
@@ -227,16 +232,6 @@ public class CreateStepController {
 
     public Step getStep() {
         return step;
-    }
-
-    public void hideWindows(ObservableList<Stage> stages, Stage dialog) throws InterruptedException {
-        for (Stage stage : stages){
-            stage.hide();
-        }
-        Thread.sleep(150);
-
-        dialog.hide();
-        Thread.sleep(150);
     }
 
 }
