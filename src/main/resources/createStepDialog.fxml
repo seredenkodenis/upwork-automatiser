@@ -16,7 +16,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="391.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.dialog.CreateStepController">
    <children>
-      <StackPane prefHeight="86.0" prefWidth="391.0" VBox.vgrow="ALWAYS">
+      <StackPane maxHeight="200.0" maxWidth="1.7976931348623157E308" prefHeight="34.0" prefWidth="391.0" VBox.vgrow="ALWAYS">
          <children>
             <Label text="Provide all information" textAlignment="CENTER">
                <font>
@@ -25,9 +25,9 @@
             </Label>
          </children>
       </StackPane>
-      <StackPane prefHeight="383.0" prefWidth="391.0" VBox.vgrow="ALWAYS">
+      <StackPane prefHeight="383.0" prefWidth="391.0">
          <children>
-            <GridPane>
+            <GridPane alignment="TOP_CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.20001220703125" minWidth="10.0" prefWidth="121.4" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.8000244140625" minWidth="10.0" prefWidth="269.4" />
