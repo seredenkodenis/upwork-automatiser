@@ -1,5 +1,7 @@
 package main.dialog;
 
+import com.sun.javafx.robot.impl.FXRobotHelper;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -23,6 +25,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 
 public class CreateStepController {
@@ -170,7 +173,9 @@ public class CreateStepController {
     }
 
     @FXML
-    public void makePicture() throws AWTException {
+    public void makePicture() throws AWTException, InterruptedException {
+
+        hideWindows(FXRobotHelper.getStages(), (Stage) bindedButtons.getScene().getWindow());
 
         Robot robot = new Robot();
         final Dimension screenSize = Toolkit.getDefaultToolkit().
@@ -222,6 +227,16 @@ public class CreateStepController {
 
     public Step getStep() {
         return step;
+    }
+
+    public void hideWindows(ObservableList<Stage> stages, Stage dialog) throws InterruptedException {
+        for (Stage stage : stages){
+            stage.hide();
+        }
+        Thread.sleep(150);
+
+        dialog.hide();
+        Thread.sleep(150);
     }
 
 }
