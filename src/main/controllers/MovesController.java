@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -12,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.annotations.ValueProcessor;
+import main.data.ActionType;
 import main.data.Step;
 import main.dialog.CreateStepController;
 
@@ -24,6 +24,8 @@ import java.util.List;
 
 public class MovesController {
 
+    private final List<Step> stepList = new ArrayList<>();
+
     @FXML
     private Parent parent;
 
@@ -32,9 +34,6 @@ public class MovesController {
 
     @FXML
     private Slider counts;
-
-    private final List<Step> stepList = new ArrayList<>();
-
 
     @FXML
     private void addNewStep() throws IOException, IllegalAccessException {
@@ -49,6 +48,7 @@ public class MovesController {
                 .add(new Image(getClass().getResourceAsStream("/main/resources/robot.png")));
         stage.setTitle("Create new step");
         stage.setScene(scene);
+
         ValueProcessor.fillValues(newStep);
         stage.showAndWait();
 
@@ -83,18 +83,11 @@ public class MovesController {
             for (Step currStep : stepList) {
                 if (currStep.getPoint().getX() != null) {
                     robot.mouseMove((int) currStep.getPoint().getX().longValue(), (int) currStep.getPoint().getY().longValue());
-                    switch (currStep.getType()) {
-                        case CLICK:
-                            robot.mousePress(InputEvent.BUTTON1_MASK);
-                            robot.mouseRelease(InputEvent.BUTTON1_MASK);
-                            break;
-                        case DOUBLE_CLICK:
-                            //TODO: find why double ckick doesn't work
-                            //Получается только через 2 одинарных нажатия открыть какой-то файл
-                            break;
+                    if (currStep.getType() == ActionType.CLICK) {
+                        robot.mousePress(InputEvent.BUTTON1_MASK);
+                        robot.mouseRelease(InputEvent.BUTTON1_MASK);
                     }
                 } else {
-                    //TODO: make in create step controller blocking for more than 2 keys
                     //TODO: check and implement here some special events, like a shift + smth or ctrl + smth.
                     //TODO: check why space can't be pressed
                     if (currStep.getActions().size() == 2) {

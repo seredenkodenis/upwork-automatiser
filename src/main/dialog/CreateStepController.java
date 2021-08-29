@@ -1,19 +1,15 @@
 package main.dialog;
 
 import com.sun.javafx.robot.impl.FXRobotHelper;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import main.annotations.Value;
 import main.data.ActionType;
 import main.data.Step;
@@ -23,17 +19,13 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.awt.image.Raster;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 
 public class CreateStepController {
 
     private final List<String> actions = new ArrayList<>();
-
-    private Scene scene;
 
     @FXML
     private Button submitButton;
@@ -64,20 +56,6 @@ public class CreateStepController {
 
     private int tries = 2;
 
-    private final EventHandler<KeyEvent> event = new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(KeyEvent event) {
-
-            if (tries == 1) {
-                rebindButton.setDisable(false);
-                bindButton.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, this);
-            }
-            changeText(event.getCode().getName());
-            actions.add(event.getCode().getName());
-            tries = tries - 1;
-        }
-    };
-
     private Double pointX;
 
     private Double pointY;
@@ -89,22 +67,32 @@ public class CreateStepController {
     @Value(key = "dialog-title")
     private String title;
 
+    private final EventHandler<KeyEvent> event = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent event) {
+            if (tries == 1) {
+                rebindButton.setDisable(false);
+                bindButton.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, this);
+            }
+
+            bindedButtons.setText(bindedButtons.getText() + " " + event.getCode().getName());
+            actions.add(event.getCode().getName());
+            tries = tries - 1;
+        }
+    };
+
     @FXML
     private void saveStep() {
-        if (actions.size() != 0 || (pointX != null && pointY != null)) {
+        if (actions.isEmpty() || (pointX != null && pointY != null)) {
             step = new Step();
             step.setPoint(new main.data.Point(pointX, pointY));
             step.setActions(actions);
             step.setType(type);
             step.setDescription(descriptionField.getText());
         }
+
         Stage currentStage = (Stage) bindedButtons.getScene().getWindow();
         currentStage.close();
-    }
-
-    @FXML
-    private void changeText(String key) {
-        bindedButtons.setText(bindedButtons.getText() + " " + key);
     }
 
     @FXML
@@ -112,6 +100,7 @@ public class CreateStepController {
         tries = 2;
         actions.clear();
         bindedButtons.setText("");
+        rebindButton.setDisable(true);
         bindButton.setDisable(false);
     }
 
@@ -174,7 +163,7 @@ public class CreateStepController {
     }
 
     @FXML
-    public void makePicture() throws AWTException{
+    public void makePicture() throws AWTException {
 
         List<Stage> stages = FXRobotHelper.getStages();
         stages.forEach(stage -> stage.setOpacity(0f));
@@ -200,25 +189,24 @@ public class CreateStepController {
             JPanel panel = new JPanel(new BorderLayout());
             panel.add(screenScroll, BorderLayout.CENTER);
 
-            final JLabel pointLabel = new JLabel(
-                    "Click on any point in the screen shot!");
+            final JLabel pointLabel = new JLabel("Click on any point in the screen shot!");
             panel.add(pointLabel, BorderLayout.SOUTH);
 
             screenLabel.addMouseListener(new MouseAdapter() {
+
+                @Override
                 public void mouseClicked(MouseEvent me) {
                     pointOfInterest.setLocation(me.getPoint());
-                    for (int i = pointOfInterest.x - 7; i < pointOfInterest.x + 7; ++i){
-                        for (int j = pointOfInterest.y - 7; j < pointOfInterest.y + 7; ++j){
+
+                    for (int i = pointOfInterest.x - 7; i < pointOfInterest.x + 7; ++i) {
+                        for (int j = pointOfInterest.y - 7; j < pointOfInterest.y + 7; ++j) {
                             screen.setRGB(i, j, Color.RED.getRGB());
                         }
                     }
+
                     screenLabel.repaint();
                     pointLabel.setFont(new Font("Roboto", 50, 30));
-                    pointLabel.setText(
-                            "Point: " +
-                                    pointOfInterest.getX() +
-                                    "x" +
-                                    pointOfInterest.getY());
+                    pointLabel.setText("Point: " + pointOfInterest.getX() + "x" + pointOfInterest.getY());
                 }
             });
 

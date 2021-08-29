@@ -1,8 +1,5 @@
 package main.data;
 
-import javafx.scene.input.KeyCode;
-
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +13,7 @@ public class Step {
 
     private String description;
 
-    public Step() {
-    }
+    public Step() {}
 
     public ActionType getType() {
         return type;
