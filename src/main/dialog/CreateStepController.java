@@ -25,7 +25,7 @@ import java.util.List;
 
 public class CreateStepController {
 
-    private final List<String> actions = new ArrayList<>();
+    private final List<Integer> actions = new ArrayList<>();
 
     @FXML
     private Button submitButton;
@@ -72,20 +72,25 @@ public class CreateStepController {
         public void handle(KeyEvent event) {
             if (tries == 1) {
                 rebindButton.setDisable(false);
+                descriptionField.setDisable(false);
+                submitButton.setDisable(false);
+                specialKeys.setDisable(false);
                 bindButton.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, this);
             }
 
             bindedButtons.setText(bindedButtons.getText() + " " + event.getCode().getName());
-            actions.add(event.getCode().getName());
+            actions.add(event.getCode().impl_getCode());
             tries = tries - 1;
         }
     };
 
     @FXML
     private void saveStep() {
-        if (actions.isEmpty() || (pointX != null && pointY != null)) {
+        if (!actions.isEmpty() || (pointX != null && pointY != null)) {
             step = new Step();
-            step.setPoint(new main.data.Point(pointX, pointY));
+            if (pointX != null && pointY != null){
+                step.setPoint(new main.data.Point(pointX, pointY));
+            }
             step.setActions(actions);
             step.setType(type);
             step.setDescription(descriptionField.getText());
@@ -145,6 +150,9 @@ public class CreateStepController {
 
         bindButton.getScene().addEventHandler(KeyEvent.KEY_PRESSED, event);
         bindButton.setDisable(true);
+        descriptionField.setDisable(true);
+        submitButton.setDisable(true);
+        specialKeys.setDisable(true);
     }
 
     @FXML

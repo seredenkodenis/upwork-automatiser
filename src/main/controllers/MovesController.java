@@ -68,7 +68,8 @@ public class MovesController {
         fxmlLoader.setController(contentTabController);
         fxmlLoader.load();
 
-        String actions = String.join(" ", step.getActions());
+        //TODO: make here integers to codes
+        String actions = null;
 
         contentTabController.setDescription(step.getDescription());
         contentTabController.setActions(actions);
@@ -76,30 +77,38 @@ public class MovesController {
         allTabs.getTabs().add(tab);
     }
 
+    public static void moveMouse(int x, int y, int maxTimes, Robot screenWin) {
+        for(int count = 0;(MouseInfo.getPointerInfo().getLocation().getX() != x ||
+                MouseInfo.getPointerInfo().getLocation().getY() != y) &&
+                count < maxTimes; count++) {
+            screenWin.mouseMove(x, y);
+        }
+    }
+
     @FXML
     private void startRobot() throws AWTException {
         Robot robot = new Robot();
         for (int i = 0; i < counts.getValue(); ++i) {
             for (Step currStep : stepList) {
-                if (currStep.getPoint().getX() != null) {
-                    robot.mouseMove((int) currStep.getPoint().getX().longValue(), (int) currStep.getPoint().getY().longValue());
+                if (currStep.getPoint() != null) {
+                    //This made due to bug in Javafx on scaled monitors(for example 120% scale Windows)
+                    moveMouse((int) currStep.getPoint().getX().longValue(), (int) currStep.getPoint().getY().longValue(), 10, robot);;
                     if (currStep.getType() == ActionType.CLICK) {
                         robot.mousePress(InputEvent.BUTTON1_MASK);
                         robot.mouseRelease(InputEvent.BUTTON1_MASK);
                     }
                 } else {
-                    //TODO: check and implement here some special events, like a shift + smth or ctrl + smth.
-                    //TODO: check why space can't be pressed
                     if (currStep.getActions().size() == 2) {
-                        KeyStroke first = KeyStroke.getKeyStroke(currStep.getActions().get(0));
-                        KeyStroke second = KeyStroke.getKeyStroke(currStep.getActions().get(0));
+                        KeyStroke first = KeyStroke.getKeyStroke(currStep.getActions().get(0), 0, false);
+                        KeyStroke second = KeyStroke.getKeyStroke(currStep.getActions().get(1), 0, false);
                         robot.keyPress(first.getKeyCode());
                         robot.keyPress(second.getKeyCode());
                         robot.keyRelease(first.getKeyCode());
                         robot.keyRelease(second.getKeyCode());
                     } else {
-                        for (String key : currStep.getActions()) {
-                            KeyStroke btn = KeyStroke.getKeyStroke(key);
+                        //TODO: maybe we don't need this
+                        for (Integer key : currStep.getActions()) {
+                            KeyStroke btn = KeyStroke.getKeyStroke(key, 0, false);
                             robot.keyPress(btn.getKeyCode());
                             robot.keyRelease(btn.getKeyCode());
                         }

@@ -9,7 +9,7 @@ public class Step {
 
     private Point point;
 
-    private List<String> actions = new ArrayList<>();
+    private List<Integer> actions = new ArrayList<>();
 
     private String description;
 
@@ -39,11 +39,11 @@ public class Step {
         this.description = description;
     }
 
-    public List<String> getActions() {
+    public List<Integer> getActions() {
         return actions;
     }
 
-    public void setActions(List<String> actions) {
+    public void setActions(List<Integer> actions) {
         this.actions = actions;
     }
 }
