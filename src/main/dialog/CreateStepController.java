@@ -3,9 +3,11 @@ package main.dialog;
 import com.sun.javafx.robot.impl.FXRobotHelper;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -19,11 +21,13 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 
-public class CreateStepController {
+public class CreateStepController implements Initializable {
 
     private final List<Integer> actions = new ArrayList<>();
 
@@ -53,6 +57,16 @@ public class CreateStepController {
 
     @FXML
     private Button rebindButton;
+
+    @FXML
+    private ChoiceBox<Integer> sleepProp;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        sleepProp.getItems().removeAll(sleepProp.getItems());
+        sleepProp.getItems().addAll(0, 1, 2, 3, 5, 7, 10, 13, 15, 20, 30);
+        sleepProp.getSelectionModel().select(0);
+    }
 
     private int tries = 2;
 
@@ -94,6 +108,7 @@ public class CreateStepController {
             step.setActions(actions);
             step.setType(type);
             step.setDescription(descriptionField.getText());
+            step.setSleep(sleepProp.getValue());
         }
 
         Stage currentStage = (Stage) bindedButtons.getScene().getWindow();

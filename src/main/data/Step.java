@@ -13,6 +13,8 @@ public class Step {
 
     private String description;
 
+    private Integer sleep;
+
     public Step() {}
 
     public ActionType getType() {
@@ -45,5 +47,13 @@ public class Step {
 
     public void setActions(List<Integer> actions) {
         this.actions = actions;
+    }
+
+    public Integer getSleep() {
+        return sleep;
+    }
+
+    public void setSleep(Integer sleep) {
+        this.sleep = sleep;
     }
 }
