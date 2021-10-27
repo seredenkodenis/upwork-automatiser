@@ -87,8 +87,11 @@ public class CreateStepController implements Initializable {
             if (tries == 1) {
                 rebindButton.setDisable(false);
                 descriptionField.setDisable(false);
+                doubleClick.setDisable(true);
+                pictureButton.setDisable(true);
+                clickedStep.setDisable(true);
                 submitButton.setDisable(false);
-                specialKeys.setDisable(false);
+                specialKeys.setDisable(true);
                 bindButton.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, this);
             }
 
@@ -146,6 +149,7 @@ public class CreateStepController implements Initializable {
             pictureButton.setDisable(true);
             clickedStep.setDisable(true);
             bindButton.setDisable(false);
+            specialKeys.setDisable(true);
         } else {
             doubleClick.setDisable(false);
             pictureButton.setDisable(false);
@@ -168,6 +172,7 @@ public class CreateStepController implements Initializable {
         descriptionField.setDisable(true);
         submitButton.setDisable(true);
         specialKeys.setDisable(true);
+        specialKeys.setSelected(true);
     }
 
     @FXML
