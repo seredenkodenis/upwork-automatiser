@@ -92,7 +92,7 @@
                   <ChoiceBox fx:id="hours" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                   <Label prefHeight="18.0" prefWidth="118.0" text="Pause after cycle" GridPane.columnIndex="1" />
                   <Label prefHeight="18.0" prefWidth="118.0" text="Duration in hours" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Slider fx:id="counts" blockIncrement="1.0" max="1000.0" min="1.0" value="1.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                  <Slider fx:id="counts" blockIncrement="1" max="1000" min="1" value="1" GridPane.columnIndex="2" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>

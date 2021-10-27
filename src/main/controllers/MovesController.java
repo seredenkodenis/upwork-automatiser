@@ -53,6 +53,9 @@ public class MovesController implements Initializable{
     @FXML
     private Button startRobotButton;
 
+    @FXML
+    private Label clicksAmount;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         delayParam.getItems().removeAll(delayParam.getItems());
@@ -64,6 +67,9 @@ public class MovesController implements Initializable{
         hours.getSelectionModel().select(0);
 
         startRobotButton.setDisable(true);
+
+        counts.valueProperty().addListener((obs, oldValue, newValue) ->
+                counts.setValue(newValue.intValue()));
     }
 
 
