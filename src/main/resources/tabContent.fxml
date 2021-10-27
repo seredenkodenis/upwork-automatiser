@@ -10,9 +10,9 @@
     <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="600.0">
             <children>
-                <Accordion prefHeight="309.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+                <Accordion fx:id="acordion" prefHeight="309.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                     <panes>
-                        <TitledPane animated="false" text="Image">
+                        <TitledPane fx:id="imagePane" animated="false" text="Image">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -20,7 +20,7 @@
                            </children></AnchorPane>
                             </content>
                         </TitledPane>
-                        <TitledPane animated="false" text="Action">
+                        <TitledPane fx:id="actionPane" animated="false" text="Action">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>

@@ -5,7 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -83,21 +85,18 @@ public class MovesController implements Initializable{
 
     private void addNewTab(Step step) throws IOException {
         Tab tab = new Tab("Step " + (stepList.size()));
-
-        ContentTabController contentTabController = new ContentTabController("suck", "dick");
+        //TODO: make here integers to codes
+        String actions = "Not implemented yet!";
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/resources/tabContent.fxml"));
         fxmlLoader.setRoot(tab);
-        fxmlLoader.setController(contentTabController);
         fxmlLoader.load();
 
-        //TODO: make here integers to codes
-        String actions = null;
-
-        contentTabController.setDescription(step.getDescription());
-        contentTabController.setActions(actions);
-
         allTabs.getTabs().add(tab);
+        int tabNumber = tab.getTabPane().getTabs().size();
+        Accordion accordion = (Accordion) tab.getTabPane().getTabs().get(tabNumber - 1).getContent().lookup("#acordion");
+        accordion.getPanes().get(1).setContent(new Label(actions));
+        accordion.getPanes().get(2).setContent(new Label(step.getDescription()));
     }
 
     public static void moveMouse(int x, int y, int maxTimes, Robot screenWin) {
