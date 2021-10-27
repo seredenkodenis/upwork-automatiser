@@ -28,6 +28,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.scene.control.Button;
 
 public class MovesController implements Initializable{
 
@@ -48,6 +49,9 @@ public class MovesController implements Initializable{
     @FXML
     private ChoiceBox<Integer> hours;
 
+    @FXML
+    private Button startRobotButton;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         delayParam.getItems().removeAll(delayParam.getItems());
@@ -57,6 +61,8 @@ public class MovesController implements Initializable{
         hours.getItems().removeAll(hours.getItems());
         hours.getItems().addAll(0, 1, 2, 3, 5, 7, 10, 13, 15, 20, 30);
         hours.getSelectionModel().select(0);
+
+        startRobotButton.setDisable(true);
     }
 
 
@@ -80,6 +86,7 @@ public class MovesController implements Initializable{
         if (newStep.getStep() != null) {
             stepList.add(newStep.getStep());
             addNewTab(newStep.getStep());
+            startRobotButton.setDisable(false);
         }
     }
 
