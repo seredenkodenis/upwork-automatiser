@@ -22,6 +22,7 @@ import main.dialog.CreateStepController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalTime;
@@ -92,8 +93,17 @@ public class MovesController implements Initializable{
 
     private void addNewTab(Step step) throws IOException {
         Tab tab = new Tab("Step " + (stepList.size()));
-        //TODO: make here integers to codes
-        String actions = "Not implemented yet!";
+
+        String  actions = "No action!";
+
+        if (step.getType() == ActionType.CLICK){
+           actions = "Click at point: x " + step.getPoint().getX() + " and y " + step.getPoint().getY();
+        } else if (step.getActions().size() != 0){
+            StringBuilder presses = new StringBuilder();
+
+            step.getActions().forEach(button -> presses.append(KeyEvent.getKeyText(button)).append(" "));
+            actions = presses.toString();
+        }
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/resources/tabContent.fxml"));
         fxmlLoader.setRoot(tab);
