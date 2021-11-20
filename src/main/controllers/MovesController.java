@@ -25,6 +25,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -133,8 +134,8 @@ public class MovesController implements Initializable{
     @FXML
     private void startRobot() throws AWTException, InterruptedException {
         Robot robot = new Robot();
-        LocalTime endTime = LocalTime.now().plusHours(hours.getValue());
-        while (LocalTime.now().isBefore(endTime)) {
+        LocalDateTime endTime = LocalDateTime.now().plusHours(hours.getValue());
+        while (LocalDateTime.now().isBefore(endTime)) {
             for (int i = 0; i < counts.getValue(); ++i) {
                 for (Step currStep : stepList) {
                     if (currStep.getPoint() != null) {
