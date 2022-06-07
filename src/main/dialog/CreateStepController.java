@@ -1,8 +1,6 @@
 package main.dialog;
 
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -13,7 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import main.annotations.Value;
-import main.annotations.ValueProcessor;
 import main.data.ActionType;
 import main.data.Step;
 
@@ -27,6 +24,8 @@ import java.util.List;
 
 
 public class CreateStepController {
+
+    private final List<String> actions = new ArrayList<>();
 
     private Scene scene;
 
@@ -54,9 +53,24 @@ public class CreateStepController {
     @FXML
     private Button pictureButton;
 
+    @FXML
+    private Button rebindButton;
+
     private int tries = 2;
 
-    private final List<String> actions = new ArrayList<>();
+    private final EventHandler<KeyEvent> event = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent event) {
+
+            if (tries == 1) {
+                rebindButton.setDisable(false);
+                bindButton.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, this);
+            }
+            changeText(event.getCode().getName());
+            actions.add(event.getCode().getName());
+            tries = tries - 1;
+        }
+    };
 
     private Double pointX;
 
@@ -66,22 +80,9 @@ public class CreateStepController {
 
     private ActionType type;
 
-    private final EventHandler<KeyEvent> event = new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(KeyEvent event) {
-            if (tries == 0) {
-                bindButton.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, this);
-            } else {
-                changeText(event.getCode().getName());
-                actions.add(event.getCode().getName());
-                tries = tries - 1;
-            }
-        }
-    };
-
     @Value(key = "dialog-title")
     private String title;
-  
+
     @FXML
     private void saveStep() {
         if (actions.size() != 0 || (pointX != null && pointY != null)) {
@@ -98,6 +99,14 @@ public class CreateStepController {
     @FXML
     private void changeText(String key) {
         bindedButtons.setText(bindedButtons.getText() + " " + key);
+    }
+
+    @FXML
+    private void rebindButtons() {
+        tries = 2;
+        actions.clear();
+        bindedButtons.setText("");
+        bindButton.setDisable(false);
     }
 
     @FXML
@@ -140,6 +149,9 @@ public class CreateStepController {
         alert.showAndWait();
 
         bindButton.getScene().addEventHandler(KeyEvent.KEY_PRESSED, event);
+
+        bindButton.setDisable(true);
+
     }
 
     @FXML
