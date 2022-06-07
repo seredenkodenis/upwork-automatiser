@@ -16,7 +16,6 @@ public class ContentTabController {
         this.actions = new Label(actions);
     }
 
-
     public void setDescription(String description) {
         this.description.setText(description);
     }

@@ -1,11 +1,10 @@
 package main.annotations;
 
+import main.exceptions.ValueException;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.InputStream;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +22,6 @@ public class ValueProcessor {
         for (Field field : fields) {
             Value annotation = field.getAnnotation(Value.class);
             if (annotation != null) {
-                field.setAccessible(true);
                 result.put(annotation.key(), field);
             }
         }
@@ -40,11 +38,11 @@ public class ValueProcessor {
 
         //TODO:maybe make Context add this initialization at start of appplication
 
-        for (Map.Entry<String, Field> field : fields.entrySet()){
+        for (Map.Entry<String, Field> field : fields.entrySet()) {
             Object data = parsed.get(field.getKey());
 
             if (data == null) {
-                throw new RuntimeException("Field with such key was not found! " + field.getValue().toGenericString());
+                throw new ValueException("Field with such key was not found! " + field.getValue().toGenericString());
             }
 
             field.getValue().setAccessible(true);
