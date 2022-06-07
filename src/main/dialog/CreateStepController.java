@@ -9,6 +9,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import main.annotations.Value;
 import main.data.ActionType;
@@ -19,6 +20,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.awt.image.Raster;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,7 +154,6 @@ public class CreateStepController {
 
         bindButton.setDisable(true);
 
-    }
 
     @FXML
     private void isDoubleClicked() {
@@ -182,8 +183,8 @@ public class CreateStepController {
             JLabel screenLabel = new JLabel(new ImageIcon(screen));
             JScrollPane screenScroll = new JScrollPane(screenLabel);
             screenScroll.setPreferredSize(new Dimension(
-                    (int) (screenSize.getWidth() / 2),
-                    (int) (screenSize.getHeight() / 2)));
+                    (int) (screenSize.getWidth() * 0.75),
+                    (int) (screenSize.getHeight() * 0.75)));
 
             final Point pointOfInterest = new Point();
 
@@ -197,6 +198,13 @@ public class CreateStepController {
             screenLabel.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent me) {
                     pointOfInterest.setLocation(me.getPoint());
+                    for (int i = pointOfInterest.x - 7; i < pointOfInterest.x + 7; ++i){
+                        for (int j = pointOfInterest.y - 7; j < pointOfInterest.y + 7; ++j){
+                            screen.setRGB(i, j, Color.RED.getRGB());
+                        }
+                    }
+                    screenLabel.repaint();
+                    pointLabel.setFont(new Font("Roboto", 50, 30));
                     pointLabel.setText(
                             "Point: " +
                                     pointOfInterest.getX() +
