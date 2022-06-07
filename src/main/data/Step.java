@@ -1,9 +1,10 @@
 package main.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Step {
+public class Step implements Serializable {
 
     private ActionType type;
 
@@ -13,7 +14,10 @@ public class Step {
 
     private String description;
 
-    public Step() {}
+    private Integer sleep;
+
+    public Step() {
+    }
 
     public ActionType getType() {
         return type;
@@ -45,5 +49,13 @@ public class Step {
 
     public void setActions(List<Integer> actions) {
         this.actions = actions;
+    }
+
+    public Integer getSleep() {
+        return sleep;
+    }
+
+    public void setSleep(Integer sleep) {
+        this.sleep = sleep;
     }
 }
