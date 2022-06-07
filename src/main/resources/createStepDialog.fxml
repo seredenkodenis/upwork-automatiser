@@ -3,10 +3,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -16,7 +16,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="391.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.dialog.CreateStepController">
    <children>
-      <StackPane maxHeight="200.0" maxWidth="1.7976931348623157E308" prefHeight="34.0" prefWidth="391.0" VBox.vgrow="ALWAYS">
+      <StackPane maxHeight="240.0" maxWidth="1.7976931348623157E308" prefHeight="34.0" prefWidth="391.0" VBox.vgrow="ALWAYS">
          <children>
             <Label text="Provide all information" textAlignment="CENTER">
                <font>
@@ -39,6 +39,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label text="Description" />
@@ -49,52 +50,66 @@
                      </GridPane.margin>
                   </TextField>
                   <Label text="Key trigger" GridPane.rowIndex="1" />
-                  <Button fx:id="submitButton" mnemonicParsing="false" onAction="#saveStep" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Button fx:id="submitButton" mnemonicParsing="false" onAction="#saveStep" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <Label text="Picture and point" GridPane.rowIndex="4" />
-                  <Button fx:id="pictureButton" mnemonicParsing="false" onAction="#makePicture" text="Make picture" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <SplitPane dividerPositions="0.5231343283582089" prefHeight="160.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <SplitPane prefHeight="160.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                        <GridPane>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
                            <children>
-                              <CheckBox fx:id="doubleClick" alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="19.0" mnemonicParsing="false" onAction="#isDoubleClicked" text="is Double click" AnchorPane.bottomAnchor="19.400000000000006" AnchorPane.topAnchor="19.0" />
+                              <CheckBox fx:id="doubleClick" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#isDoubleClicked" text="is Double click" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="clickedStep" mnemonicParsing="false" onAction="#isClicked" text="is Click" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                            </children>
-                        </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                           <children>
-                              <CheckBox fx:id="clickedStep" layoutX="26.0" layoutY="19.0" mnemonicParsing="false" onAction="#isClicked" text="is Click" AnchorPane.bottomAnchor="19.400000000000006" AnchorPane.topAnchor="19.0" />
-                           </children>
-                        </AnchorPane>
+                        </GridPane>
                     </items>
                   </SplitPane>
-                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <SplitPane orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
                            <children>
                               <CheckBox fx:id="specialKeys" mnemonicParsing="false" onAction="#useSpecialKeys" text="use special keys" />
+                              <Button fx:id="bindButton" mnemonicParsing="false" onAction="#bindButtons" text="Bind buttons" GridPane.rowIndex="1" />
                            </children>
-                        </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                           <children>
-                              <Button fx:id="bindButton" mnemonicParsing="false" onAction="#bindButtons" text="Bind buttons" />
-                           </children>
-                        </AnchorPane>
+                        </GridPane>
                     </items>
                   </SplitPane>
                   <Label text="Binded buttons" GridPane.rowIndex="2" />
-                  <SplitPane dividerPositions="0.5231343283582089" prefHeight="160.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <SplitPane prefHeight="160.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                        <GridPane>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
                            <children>
-                              <Label fx:id="bindedButtons" layoutX="13.0" layoutY="23.0" />
+                              <Label fx:id="bindedButtons" />
+                              <Button fx:id="rebindButton" disable="true" mnemonicParsing="false" onAction="#rebindButtons" text="Rebind buttons" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
                            </children>
-                        </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                           <children>
-                              <Button fx:id="rebindButton" disable="true" layoutY="19.0" mnemonicParsing="false" onAction="#rebindButtons" text="Rebind buttons" AnchorPane.leftAnchor="5.0" />
-                           </children>
-                        </AnchorPane>
+                        </GridPane>
                     </items>
                   </SplitPane>
+                  <Label text="Sleep" GridPane.rowIndex="5" />
+                  <ChoiceBox fx:id="sleepProp" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Button fx:id="pictureButton" mnemonicParsing="false" onAction="#makePicture" text="Make picture" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                </children>
             </GridPane>
          </children>
