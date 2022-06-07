@@ -81,7 +81,7 @@ public class CreateStepController {
 
     @Value(key = "dialog-title")
     private String title;
-
+  
     @FXML
     private void saveStep() {
         if (actions.size() != 0 || (pointX != null && pointY != null)) {
