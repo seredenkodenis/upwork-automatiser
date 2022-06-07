@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.MovesController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TabPane fx:id="allTabs" prefHeight="221.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
         <tabs>
@@ -73,7 +73,7 @@
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
                   <RowConstraints />
                   <RowConstraints />
                   <RowConstraints maxHeight="58.60001640319823" minHeight="10.0" prefHeight="46.60001640319824" vgrow="SOMETIMES" />
@@ -103,6 +103,7 @@
                      </GridPane.margin>
                   </Label>
                   <Label fx:id="clicksAmount" prefHeight="18.0" prefWidth="118.0" text="Amount of clicks" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Button fx:id="saveScript" mnemonicParsing="false" onAction="#saveScript" prefHeight="59.0" prefWidth="200.0" text="Save script" GridPane.columnIndex="3" GridPane.rowIndex="4" />
                </children>
             </GridPane>
          </children>

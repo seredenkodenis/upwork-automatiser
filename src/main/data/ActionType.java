@@ -1,7 +1,7 @@
 package main.data;
 
-public enum ActionType {
+import java.io.Serializable;
 
+public enum ActionType implements Serializable {
     CLICK
-
 }
