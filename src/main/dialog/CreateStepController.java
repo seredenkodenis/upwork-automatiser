@@ -1,5 +1,8 @@
 package main.dialog;
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -7,14 +10,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import main.data.ActionType;
 import main.data.Step;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -61,6 +63,19 @@ public class CreateStepController {
     private Step step;
 
     private ActionType type;
+
+    private final EventHandler<KeyEvent> event = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent event) {
+            if (tries == 0) {
+                bindButton.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, this);
+            } else {
+                changeText(event.getCode().getName());
+                actions.add(event.getCode().getName());
+                tries = tries - 1;
+            }
+        }
+    };
 
     @FXML
     private void saveStep() {
@@ -119,16 +134,7 @@ public class CreateStepController {
 
         alert.showAndWait();
 
-        if (tries == 0) {
-            bindButton.getScene().setOnKeyPressed(e -> {
-            });
-        } else {
-            bindButton.getScene().setOnKeyPressed(e -> {
-                changeText(e.getCode().getName());
-                actions.add(e.getCode().getName());
-                tries = tries - 1;
-            });
-        }
+        bindButton.getScene().addEventHandler(KeyEvent.KEY_PRESSED, event);
     }
 
     @FXML
