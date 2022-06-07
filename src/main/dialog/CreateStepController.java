@@ -14,6 +14,7 @@ import main.data.Step;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -51,7 +52,7 @@ public class CreateStepController {
 
     private int tries = 2;
 
-    private final List<KeyCode> actions = new ArrayList<>();
+    private final List<String> actions = new ArrayList<>();
 
     private Double pointX;
 
@@ -121,7 +122,7 @@ public class CreateStepController {
         } else {
             bindButton.getScene().setOnKeyPressed(e -> {
                 changeText(e.getCode().getName());
-                actions.add(e.getCode());
+                actions.add(e.getCode().getName());
                 tries = tries - 1;
             });
         }

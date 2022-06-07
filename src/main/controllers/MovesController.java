@@ -9,12 +9,15 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
-import javafx.scene.robot.Robot;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.data.Step;
 import main.dialog.CreateStepController;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +66,7 @@ public class MovesController {
         fxmlLoader.setController(contentTabController);
         fxmlLoader.load();
 
-        String actions = step.getActions().stream().map(KeyCode::getName).collect(Collectors.joining(" "));
+        String actions = String.join(" ", step.getActions());
 
         contentTabController.setDescription(step.getDescription());
         contentTabController.setActions(actions);
@@ -72,16 +75,16 @@ public class MovesController {
     }
 
     @FXML
-    private void startRobot() {
+    private void startRobot() throws AWTException {
         Robot robot = new Robot();
         for (int i = 0; i < counts.getValue(); ++i) {
             for (Step currStep : stepList) {
                 if (currStep.getPoint().getX() != null) {
-                    robot.mouseMove(currStep.getPoint().getX(), currStep.getPoint().getY());
+                    robot.mouseMove((int) currStep.getPoint().getX().longValue(), (int) currStep.getPoint().getY().longValue());
                     switch (currStep.getType()) {
                         case CLICK:
-                            robot.mouseClick(MouseButton.PRIMARY);
-                            robot.mouseRelease(MouseButton.PRIMARY);
+                            robot.mousePress(InputEvent.BUTTON1_MASK);
+                            robot.mouseRelease(InputEvent.BUTTON1_MASK);
                             break;
                         case DOUBLE_CLICK:
                             //TODO: find why double ckick doesn't work
@@ -90,15 +93,20 @@ public class MovesController {
                     }
                 } else {
                     //TODO: make in create step controller blocking for more than 2 keys
+                    //TODO: check and implement here some special events, like a shift + smth or ctrl + smth.
+                    //TODO: check why space can't be pressed
                     if (currStep.getActions().size() == 2) {
-                        robot.keyPress(currStep.getActions().get(0));
-                        robot.keyPress(currStep.getActions().get(1));
-                        robot.keyRelease(currStep.getActions().get(0));
-                        robot.keyRelease(currStep.getActions().get(1));
+                        KeyStroke first = KeyStroke.getKeyStroke(currStep.getActions().get(0));
+                        KeyStroke second = KeyStroke.getKeyStroke(currStep.getActions().get(0));
+                        robot.keyPress(first.getKeyCode());
+                        robot.keyPress(second.getKeyCode());
+                        robot.keyRelease(first.getKeyCode());
+                        robot.keyRelease(second.getKeyCode());
                     } else {
-                        for (KeyCode key : currStep.getActions()) {
-                            robot.keyPress(key);
-                            robot.keyRelease(key);
+                        for (String key : currStep.getActions()) {
+                            KeyStroke btn = KeyStroke.getKeyStroke(key);
+                            robot.keyPress(btn.getKeyCode());
+                            robot.keyRelease(btn.getKeyCode());
                         }
                     }
                 }

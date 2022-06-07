@@ -2,6 +2,7 @@ package main.data;
 
 import javafx.scene.input.KeyCode;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class Step {
 
     private Point point;
 
-    private List<KeyCode> actions = new ArrayList<>();
+    private List<String> actions = new ArrayList<>();
 
     private String description;
 
@@ -34,19 +35,19 @@ public class Step {
         this.point = point;
     }
 
-    public List<KeyCode> getActions() {
-        return actions;
-    }
-
-    public void setActions(List<KeyCode> actions) {
-        this.actions = actions;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<String> getActions() {
+        return actions;
+    }
+
+    public void setActions(List<String> actions) {
+        this.actions = actions;
     }
 }
