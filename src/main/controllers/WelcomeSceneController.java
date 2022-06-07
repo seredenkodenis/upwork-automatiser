@@ -46,16 +46,11 @@ public class WelcomeSceneController {
 
     @FXML
     private void newButtonClicked() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/allMoves.fxml"));
-
-        MovesController movesController = new MovesController();
-        loader.setController(movesController);
-
-        Parent parent = loader.load();
-
-        Stage currentStage = (Stage) createButton.getScene().getWindow();
-        currentStage.setScene(new Scene(parent));
-        currentStage.show();
+        URL newScriptURL = getClass().getResource("/main/resources/allMoves.fxml");
+        Parent parent = FXMLLoader.load(newScriptURL);
+        Stage stage = (Stage) createButton.getScene().getWindow();
+        stage.setScene(new Scene(parent));
+        stage.show();
     }
 
     private List<Step> openSaveFile(File file) throws IOException, ClassNotFoundException {

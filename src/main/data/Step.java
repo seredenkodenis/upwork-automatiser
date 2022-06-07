@@ -1,6 +1,5 @@
 package main.data;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +15,7 @@ public class Step implements Serializable {
 
     private Integer sleep;
 
-    public Step() {
-    }
+    public Step() {}
 
     public ActionType getType() {
         return type;
