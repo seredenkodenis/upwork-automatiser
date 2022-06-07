@@ -53,6 +53,7 @@ public class MovesController {
         if (newStep.getStep() != null) {
             stepList.add(newStep.getStep());
             addNewTab(newStep.getStep());
+            startRobotButton.setDisable(false);
         }
     }
 
