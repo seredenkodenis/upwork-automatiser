@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -48,7 +49,6 @@ public class MovesController {
         stage.setTitle("Create new step");
         stage.setScene(scene);
         stage.showAndWait();
-
 
         if (newStep.getStep() != null) {
             stepList.add(newStep.getStep());
