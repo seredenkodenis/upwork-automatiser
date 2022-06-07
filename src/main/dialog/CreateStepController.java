@@ -149,7 +149,9 @@ public class CreateStepController {
         alert.showAndWait();
 
         bindButton.getScene().addEventHandler(KeyEvent.KEY_PRESSED, event);
+
         bindButton.setDisable(true);
+
     }
 
     @FXML
