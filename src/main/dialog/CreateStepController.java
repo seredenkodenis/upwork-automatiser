@@ -66,6 +66,7 @@ public class CreateStepController implements Initializable {
         sleepProp.getItems().removeAll(sleepProp.getItems());
         sleepProp.getItems().addAll(0, 1, 2, 3, 5, 7, 10, 13, 15, 20, 30);
         sleepProp.getSelectionModel().select(0);
+        pictureButton.setDisable(true);
     }
 
     private int tries = 2;
@@ -87,8 +88,11 @@ public class CreateStepController implements Initializable {
             if (tries == 1) {
                 rebindButton.setDisable(false);
                 descriptionField.setDisable(false);
+                doubleClick.setDisable(true);
+                pictureButton.setDisable(true);
+                clickedStep.setDisable(true);
                 submitButton.setDisable(false);
-                specialKeys.setDisable(false);
+                specialKeys.setDisable(true);
                 bindButton.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, this);
             }
 
@@ -171,6 +175,7 @@ public class CreateStepController implements Initializable {
         descriptionField.setDisable(true);
         submitButton.setDisable(true);
         specialKeys.setDisable(true);
+        specialKeys.setSelected(true);
     }
 
     @FXML
