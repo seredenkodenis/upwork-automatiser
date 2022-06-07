@@ -49,9 +49,11 @@ public class MovesController {
         stage.setScene(scene);
         stage.showAndWait();
 
+
         if (newStep.getStep() != null) {
             stepList.add(newStep.getStep());
             addNewTab(newStep.getStep());
+            startRobotButton.setDisable(false);
         }
     }
 
