@@ -31,7 +31,7 @@ public class WelcomeSceneController {
 
     @FXML
     private void newButtonClicked() throws IOException {
-        URL newScriptURL = getClass().getResource("/resources/allMoves.fxml");
+        URL newScriptURL = getClass().getResource("/main/resources/allMoves.fxml");
         parent = FXMLLoader.load(newScriptURL);
         stage = (Stage) createButton.getScene().getWindow();
         stage.setScene(new Scene(parent));
