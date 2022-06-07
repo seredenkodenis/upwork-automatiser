@@ -1,19 +1,17 @@
 package main.dialog;
 
 import com.sun.javafx.robot.impl.FXRobotHelper;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import main.annotations.Value;
 import main.data.ActionType;
 import main.data.Step;
@@ -23,17 +21,15 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.awt.image.Raster;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
+import java.util.ResourceBundle;
 
 
-public class CreateStepController {
+public class CreateStepController implements Initializable {
 
-    private final List<String> actions = new ArrayList<>();
-
-    private Scene scene;
+    private final List<Integer> actions = new ArrayList<>();
 
     @FXML
     private Button submitButton;
@@ -62,21 +58,18 @@ public class CreateStepController {
     @FXML
     private Button rebindButton;
 
+    @FXML
+    private ChoiceBox<Integer> sleepProp;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        sleepProp.getItems().removeAll(sleepProp.getItems());
+        sleepProp.getItems().addAll(0, 1, 2, 3, 5, 7, 10, 13, 15, 20, 30);
+        sleepProp.getSelectionModel().select(0);
+        pictureButton.setDisable(true);
+    }
+
     private int tries = 2;
-
-    private final EventHandler<KeyEvent> event = new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(KeyEvent event) {
-
-            if (tries == 1) {
-                rebindButton.setDisable(false);
-                bindButton.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, this);
-            }
-            changeText(event.getCode().getName());
-            actions.add(event.getCode().getName());
-            tries = tries - 1;
-        }
-    };
 
     private Double pointX;
 
@@ -89,22 +82,41 @@ public class CreateStepController {
     @Value(key = "dialog-title")
     private String title;
 
+    private final EventHandler<KeyEvent> event = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent event) {
+            if (tries == 1) {
+                rebindButton.setDisable(false);
+                descriptionField.setDisable(false);
+                doubleClick.setDisable(true);
+                pictureButton.setDisable(true);
+                clickedStep.setDisable(true);
+                submitButton.setDisable(false);
+                specialKeys.setDisable(true);
+                bindButton.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, this);
+            }
+
+            bindedButtons.setText(bindedButtons.getText() + " " + event.getCode().getName());
+            actions.add(event.getCode().impl_getCode());
+            tries = tries - 1;
+        }
+    };
+
     @FXML
     private void saveStep() {
-        if (actions.size() != 0 || (pointX != null && pointY != null)) {
+        if (!actions.isEmpty() || (pointX != null && pointY != null)) {
             step = new Step();
-            step.setPoint(new main.data.Point(pointX, pointY));
+            if (pointX != null && pointY != null){
+                step.setPoint(new main.data.Point(pointX, pointY));
+            }
             step.setActions(actions);
             step.setType(type);
             step.setDescription(descriptionField.getText());
+            step.setSleep(sleepProp.getValue());
         }
+
         Stage currentStage = (Stage) bindedButtons.getScene().getWindow();
         currentStage.close();
-    }
-
-    @FXML
-    private void changeText(String key) {
-        bindedButtons.setText(bindedButtons.getText() + " " + key);
     }
 
     @FXML
@@ -112,6 +124,7 @@ public class CreateStepController {
         tries = 2;
         actions.clear();
         bindedButtons.setText("");
+        rebindButton.setDisable(true);
         bindButton.setDisable(false);
     }
 
@@ -122,11 +135,13 @@ public class CreateStepController {
             specialKeys.setDisable(true);
             doubleClick.setDisable(true);
             bindButton.setDisable(true);
+            pictureButton.setDisable(false);
         } else {
             type = null;
             specialKeys.setDisable(false);
             doubleClick.setDisable(false);
             bindButton.setDisable(false);
+            pictureButton.setDisable(true);
         }
     }
 
@@ -137,6 +152,7 @@ public class CreateStepController {
             pictureButton.setDisable(true);
             clickedStep.setDisable(true);
             bindButton.setDisable(false);
+            specialKeys.setDisable(true);
         } else {
             doubleClick.setDisable(false);
             pictureButton.setDisable(false);
@@ -156,6 +172,10 @@ public class CreateStepController {
 
         bindButton.getScene().addEventHandler(KeyEvent.KEY_PRESSED, event);
         bindButton.setDisable(true);
+        descriptionField.setDisable(true);
+        submitButton.setDisable(true);
+        specialKeys.setDisable(true);
+        specialKeys.setSelected(true);
     }
 
     @FXML
@@ -165,16 +185,18 @@ public class CreateStepController {
             specialKeys.setDisable(true);
             clickedStep.setDisable(true);
             bindButton.setDisable(true);
+            pictureButton.setDisable(false);
         } else {
             type = null;
             specialKeys.setDisable(false);
             clickedStep.setDisable(false);
             bindButton.setDisable(false);
+            pictureButton.setDisable(true);
         }
     }
 
     @FXML
-    public void makePicture() throws AWTException{
+    public void makePicture() throws AWTException {
 
         List<Stage> stages = FXRobotHelper.getStages();
         stages.forEach(stage -> stage.setOpacity(0f));
@@ -200,25 +222,24 @@ public class CreateStepController {
             JPanel panel = new JPanel(new BorderLayout());
             panel.add(screenScroll, BorderLayout.CENTER);
 
-            final JLabel pointLabel = new JLabel(
-                    "Click on any point in the screen shot!");
+            final JLabel pointLabel = new JLabel("Click on any point in the screen shot!");
             panel.add(pointLabel, BorderLayout.SOUTH);
 
             screenLabel.addMouseListener(new MouseAdapter() {
+
+                @Override
                 public void mouseClicked(MouseEvent me) {
                     pointOfInterest.setLocation(me.getPoint());
-                    for (int i = pointOfInterest.x - 7; i < pointOfInterest.x + 7; ++i){
-                        for (int j = pointOfInterest.y - 7; j < pointOfInterest.y + 7; ++j){
+
+                    for (int i = pointOfInterest.x - 7; i < pointOfInterest.x + 7; ++i) {
+                        for (int j = pointOfInterest.y - 7; j < pointOfInterest.y + 7; ++j) {
                             screen.setRGB(i, j, Color.RED.getRGB());
                         }
                     }
+
                     screenLabel.repaint();
                     pointLabel.setFont(new Font("Roboto", 50, 30));
-                    pointLabel.setText(
-                            "Point: " +
-                                    pointOfInterest.getX() +
-                                    "x" +
-                                    pointOfInterest.getY());
+                    pointLabel.setText("Point: " + pointOfInterest.getX() + "x" + pointOfInterest.getY());
                 }
             });
 
