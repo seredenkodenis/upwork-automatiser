@@ -49,6 +49,7 @@ public class MovesController {
         stage.setScene(scene);
         stage.showAndWait();
 
+
         if (newStep.getStep() == null) {
             stage.setScene(scene);
             stage.showAndWait();
