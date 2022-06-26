@@ -21,11 +21,22 @@ This project was created to automate tracking on the Upwork freelance platform. 
 ## Demo
 ![alt text](https://i.imgur.com/VWLbP9f.png)
 ![](https://i.imgur.com/sptqvpD.png)
-## Installation and start
+## Installation
 
-In order to use project just download exe from build folder
+1. Download a zip version
+2. Unzip it where you want
+3. Navigate to unziped folder and run upwork-cheater.exe(You will see Icon of robot)
 
-If you want to start in IDE then just make sure that you have installed Java 8. Clone to your IDE and you are ready to go!
+## Building new version
+If you developed new version then you have to create exe and add it to versions folder
+
+In order to do this you have to setup artifacts in IntelliJ IDEA. Please use screenshots below to make it.
+![](https://i.imgur.com/nripby4.png)
+Click at plus and add each option
+![](https://i.imgur.com/x6mMPBt.png)
+Then navigate to JavaFX and make sure that everything is as at images below. ALSO! Make sure that you selected icon
+![](https://i.imgur.com/uw7KvS3.png)
+![](https://i.imgur.com/lcs1JcM.png)
 ## Acknowledgements
 
  - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
