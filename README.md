@@ -1,5 +1,5 @@
 
-# Upwork-cheater
+# Upwork-automiser
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 This project was created to automate tracking on the Upwork freelance platform. My problem was that my friend had to use Upwork-tracker but he was worried about Security. That's why I wrote a programm that imitates working process.
